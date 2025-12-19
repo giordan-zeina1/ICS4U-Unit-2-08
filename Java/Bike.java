@@ -1,26 +1,58 @@
 /*
  *
  * @author  Giordan Zeina
- * @version 1.0
+ * @version 1.2
  * @since   2025-11-17
  */
 
+/**
+ * Holds properties of a Bike.
+ */
 public class Bike extends Vehicle {
 
-    private double cadence;
-    private double gear;
+    /**
+     * Number of tires on a bike.
+    */
+    private static final int BIKE_TIRES = 2;
 
-    public Bike(String colour, double maxSpeed, double gear) {
-        super(colour, maxSpeed);
-        this.cadence = 0;
-        this.gear = gear;
+    /**
+     * The initial starting gear.
+    */
+    private static final int INITIAL_GEAR = 1;
+
+    /**
+     * The bike cadence. 
+    */
+    private double cadence;
+
+    /**
+     * The current gear.
+    */
+    private int gear;
+
+    /**
+     * Constructs a Bike.
+     *
+     * @param colour the bike colour
+     * @param maxSpeed the max speed
+     */
+    public Bike(final String colour,
+                final double maxSpeed) {
+        super(colour, maxSpeed, BIKE_TIRES);
+        this.cadence = 0.0;
+        this.gear = INITIAL_GEAR;
     }
 
-    // overrides Vehicle accelerate
-    @Override
-    public void accelerate(double appliedPower, double newGear) {
+    /**
+     * acceleration for a bike.
+     *
+     * @param appliedPower the applied power
+     * @param newGear the new gear
+     */
+    public void accelerate(final double appliedPower,
+                           final double newGear) {
         cadence += appliedPower;
-        gear = newGear;
+        gear = (int) newGear;
         speed += cadence * gear;
 
         if (speed > maxSpeed) {
@@ -28,13 +60,12 @@ public class Bike extends Vehicle {
         }
     }
 
+    /**
+     * Rings the bikes bell.
+     *
+     * @return "Ding ding!"
+     */
     public String ringBell() {
         return "Ding ding!\n";
-    }
-
-    @Override
-    public String status() {
-        return super.status() +
-               "\n-> Cadence: " + (int) cadence;
     }
 }
